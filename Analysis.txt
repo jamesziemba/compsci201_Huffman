@@ -1,0 +1,47 @@
+Calgary-simple
+
+total bytes read: 286759355
+total compressed bytes 37372563
+total percent compression 86.967
+compression time: 60.292
+
+Calgary-tree
+
+total bytes read: 286759355
+total compressed bytes 37357137
+total percent compression 86.973
+compression time: 65.276
+
+Waterloo-simple
+
+total bytes read: 12466304
+total compressed bytes 10205283
+total percent compression 18.137
+compression time: 15.942
+
+Waterloo-tree
+
+total bytes read: 12466304
+total compressed bytes 10199918
+total percent compression 18.180
+compression time: 15.450
+
+1. Text files compress much more than binary files. The data above shows that Waterloo (binary files)
+only compresses ~18% while Calgary (text files) compresses just under 87%.
+
+	melville.txt	kjv10.txt	bib.txt	book1.txt	trans.txt
+1x	286479			14850296	308002	2643176		227818
+2x	5685			303366		8113	45587		6065
+3x	-75				-5989		-78		-860		-64
+
+2. The above table shows the amount of bits saved after compressing 5 different files multiple times.
+The second time we compressed the file, the number of bits saved was ~2% of the size of bits saved
+initially. After the third time, the result was always negative, which means that the "huffed" file
+was not a compressed version of the source file, but rather resulted in a larger one.
+
+3. A file that has a high number of occurrences of some letters would be able to compress greatly 
+because the amount of bits required to encode each letter would be minimal compared to the amount
+to write out the original letter. It is no longer worth it to encode such a file when it takes more
+bits to encode the file than to just keep it as it is. This would most likely occur if the header
+included a lot of useless bits (such as with the use of a "count" header for a file that only has
+one letter occur).
